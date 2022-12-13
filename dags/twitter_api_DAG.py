@@ -26,6 +26,7 @@ def run_twitter_api():
     # Read configs
     config = configparser.ConfigParser()
     config.read('my_config.ini')
+    config.sections()
 
     api_key = config['twitter']['api_key']
     api_key_secret = config['twitter']['api_key_secret']

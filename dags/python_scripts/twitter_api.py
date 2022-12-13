@@ -18,7 +18,7 @@ from functions.execute_values import execute_values
 #---------------------- Twitter API Credentials ----------------------
 # Read configs
 config = configparser.ConfigParser()
-config.read('my_config.ini')
+config.read('config.ini')
 
 api_key = config['twitter']['api_key']
 api_key_secret = config['twitter']['api_key_secret']
@@ -68,7 +68,7 @@ print(str(len(twitter_df.index)) + ' Tweets successfully obtained')
 #---------------------- Data Lake Credentials ----------------------
 # Read configs
 config = configparser.ConfigParser()
-config.read('my_config.ini')
+config.read('config.ini')
 
 host = config['data_lake']['host']
 database = config['data_lake']['database']
