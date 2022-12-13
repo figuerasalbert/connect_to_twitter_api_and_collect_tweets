@@ -24,14 +24,20 @@ def start_dag():
 def run_twitter_api():
     #---------------------- Twitter API Credentials ----------------------
     # Read configs
-    config = configparser.ConfigParser()
-    config.read('config.ini')
+    #config = configparser.ConfigParser()
+    #config.read('config.ini')
 
-    api_key = config['twitter']['api_key']
-    api_key_secret = config['twitter']['api_key_secret']
+    #api_key = config['twitter']['api_key']
+    #api_key_secret = config['twitter']['api_key_secret']
 
-    access_token = config['twitter']['access_token']
-    access_token_secret = config['twitter']['access_token_secret']
+    #access_token = config['twitter']['access_token']
+    #access_token_secret = config['twitter']['access_token_secret']
+
+    api_key = 'HwElQ5vIabPZFJd26PbFrvRnU'
+    api_key_secret = 'l9WNDhziEzzVROMWlAWsNKUg57P3ZTD9B8SDaZJtil6G7kvpTC'
+
+    access_token = '1523632496998559746-yz0Z9Zc6Ja9pk9ZGjcNB27dulCAO29'
+    access_token_secret = 'dOFz7UeCphlUdbscKL02YuDH26tmkJoMcM8E8gXU8k55e'
 
     #---------------------- Create the connection with the Twitter API ----------------------
     # Authentification
