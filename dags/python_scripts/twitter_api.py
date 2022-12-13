@@ -63,6 +63,7 @@ twitter_df = pd.DataFrame(data_tweets, columns = columns)
 
 # Changing the format of column Date, eliminating the time zone
 twitter_df['Tweet_Date'] = pd.to_datetime(twitter_df.Tweet_Date).dt.tz_localize(None)
+
 print(str(len(twitter_df.index)) + ' Tweets successfully obtained')
 
 
