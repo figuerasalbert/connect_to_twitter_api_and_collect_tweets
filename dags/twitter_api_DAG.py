@@ -139,7 +139,7 @@ start_task = PythonOperator(
 get_tweets_task = PythonOperator(
     task_id = "get_tweets_task",
     python_callable = run_twitter_api,
-    do_xcom_push = True,
+    do_xcom_push = False,
     dag = dag
 )
 
