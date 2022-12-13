@@ -10,6 +10,7 @@ import pandas as pd
 import tweepy
 #import configparser
 import datetime
+import config
 
 # Packages for Connect to the Data Lake
 from airflow.hooks.postgres_hook import PostgresHook
@@ -38,13 +39,19 @@ def run_twitter_api():
     #access_token = "1523632496998559746-yz0Z9Zc6Ja9pk9ZGjcNB27dulCAO29"
     #access_token_secret = "dOFz7UeCphlUdbscKL02YuDH26tmkJoMcM8E8gXU8k55e"
 
-    f = open("twitter_api_credentials.txt", "r")
-    lines = f.readlines()
-    api_key = (lines[0].split())[2]
-    api_key_secret = (lines[1].split())[2]
-    access_token = (lines[2].split())[2]
-    access_token_secret = (lines[3].split())[2]
-    f.close()
+    #f = open("/dags/twitter_api_credentials.txt", "r")
+    #lines = f.readlines()
+    #api_key = (lines[0].split())[2]
+    #api_key_secret = (lines[1].split())[2]
+    #access_token = (lines[2].split())[2]
+    #access_token_secret = (lines[3].split())[2]
+    #f.close()
+
+    api_key = config.api_key
+    api_key_secret = config.api_key_secret
+    access_token = config.access_token
+    access_token_secret = config.access_token_secret
+
 
     #---------------------- Create the connection with the Twitter API ----------------------
     # Authentification

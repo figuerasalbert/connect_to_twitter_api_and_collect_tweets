@@ -15,6 +15,7 @@ import datetime
 from functions.execute_values import execute_values
 
 
+
 #---------------------- Twitter API Credentials ----------------------
 # Read configs
 config = configparser.ConfigParser()
@@ -25,7 +26,6 @@ api_key_secret = config['twitter']['api_key_secret']
 
 access_token = config['twitter']['access_token']
 access_token_secret = config['twitter']['access_token_secret']
-
 
 #---------------------- Create the connection with the Twitter API ----------------------
 # Authentification
