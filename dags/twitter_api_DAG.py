@@ -57,12 +57,12 @@ def run_twitter_api():
     #---------------------- Save the tweets in a DataFrame ----------------------
     # Create DataFrame
     columns = ['Twitter_User', 'Tweet', 'Tweet_Date']
-    data = []
+    data_tweets = []
 
     for tweet in tweets:
-        data.append([tweet.user.screen_name, tweet.full_text, tweet.created_at])
+        data_tweets.append([tweet.user.screen_name, tweet.full_text, tweet.created_at])
 
-    twitter_df = pd.DataFrame(data, columns = columns)
+    twitter_df = pd.DataFrame(data_tweets, columns = columns)
 
     # Changing the format of column Date, eliminating the time zone
     twitter_df['Tweet_Date'] = pd.to_datetime(twitter_df.Tweet_Date).dt.tz_localize(None)
