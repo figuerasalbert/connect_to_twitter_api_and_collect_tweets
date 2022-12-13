@@ -74,7 +74,7 @@ def run_twitter_api():
     twitter_df['Tweet_Date'] = pd.to_datetime(twitter_df.Tweet_Date).dt.tz_localize(None)
     print(str(len(twitter_df.index)) + ' Tweets successfully obtained')
 
-    tweets_list = [tuple(x) for x in tweets_list.to_numpy()]
+    tweets_list = [tuple(x) for x in twitter_df.to_numpy()]
 
     return tweets_list
 
