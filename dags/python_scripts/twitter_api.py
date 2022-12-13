@@ -18,7 +18,7 @@ from functions.execute_values import execute_values
 #---------------------- Twitter API Credentials ----------------------
 # Read configs
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read('my_config.ini')
 
 api_key = config['twitter']['api_key']
 api_key_secret = config['twitter']['api_key_secret']
@@ -62,14 +62,13 @@ twitter_df = pd.DataFrame(data_tweets, columns = columns)
 
 # Changing the format of column Date, eliminating the time zone
 twitter_df['Tweet_Date'] = pd.to_datetime(twitter_df.Tweet_Date).dt.tz_localize(None)
-
 print(str(len(twitter_df.index)) + ' Tweets successfully obtained')
 
 
 #---------------------- Data Lake Credentials ----------------------
 # Read configs
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read('my_config.ini')
 
 host = config['data_lake']['host']
 database = config['data_lake']['database']
