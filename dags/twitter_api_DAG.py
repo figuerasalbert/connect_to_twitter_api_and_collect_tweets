@@ -118,7 +118,7 @@ default_args = {
 }
 
 dag = DAG('twitter_api_DAG',
-          schedule_interval='0 0 * * *',
+          #schedule_interval='0 0 * * *',
           catchup=False,
           default_args=default_args)
 
@@ -135,7 +135,7 @@ start_task = PythonOperator(
 get_tweets_task = PythonOperator(
     task_id = "get_tweets_task",
     python_callable = run_twitter_api,
-    #do_xcom_push = True,
+    do_xcom_push = True,
     dag = dag
 )
 
