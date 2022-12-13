@@ -114,7 +114,7 @@ def finish_dag():
 # ----------------------------- Create DAG -----------------------------
 default_args = {
     'owner': 'albert',
-    'start_date': datetime.datetime(2022, 12, 13)
+    'start_date': datetime.datetime(2022, 12, 10)
 }
 
 dag = DAG('twitter_api_DAG',
