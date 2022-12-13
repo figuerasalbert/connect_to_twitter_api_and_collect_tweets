@@ -50,6 +50,7 @@ tweets = tweepy.Cursor(api.search_tweets,
                        tweet_mode = 'extended').items(limit)
 
 
+
 #---------------------- Save the tweets in a DataFrame ----------------------
 # Create DataFrame
 columns = ['Twitter_User', 'Tweet', 'Tweet_Date']

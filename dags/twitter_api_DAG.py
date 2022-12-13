@@ -72,7 +72,11 @@ def run_twitter_api():
 
     # Changing the format of column Date, eliminating the time zone
     twitter_df['Tweet_Date'] = pd.to_datetime(twitter_df.Tweet_Date).dt.tz_localize(None)
-    return twitter_df
+    print(str(len(twitter_df.index)) + ' Tweets successfully obtained')
+
+    tweets_list = [tuple(x) for x in tweets_list.to_numpy()]
+
+    return tweets_list
 
 # 3. Load Tweets to the Data Lake
 def load_data_lake(ti):
@@ -139,7 +143,7 @@ start_task = PythonOperator(
 get_tweets_task = PythonOperator(
     task_id = "get_tweets_task",
     python_callable = run_twitter_api,
-    do_xcom_push = False,
+    do_xcom_push = True,
     dag = dag
 )
 
