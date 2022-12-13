@@ -118,7 +118,7 @@ default_args = {
 }
 
 dag = DAG('twitter_api_DAG',
-          #schedule_interval='0 0 * * *',
+          schedule_interval='0 0 * * *',
           catchup=False,
           default_args=default_args)
 
