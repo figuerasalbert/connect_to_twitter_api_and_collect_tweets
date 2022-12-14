@@ -145,9 +145,13 @@ def transform_tweets():
                         Tweet_Date VARCHAR(255), Player VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
                         Status VARCHAR(255))"
 
+    # Drop tweets_without_transformation Table
+    sql_drop_previous_table = "DROP TABLE IF EXISTS tweets_without_transformation;"
+
     # Execute SQL statements
     cursor_dw.execute(sql_drop_table)
     cursor_dw.execute(sql_create_table)
+    cursor_dw.execute(sql_drop_previous_table)
 
     # Commit
     pg_conn_dw.commit()
@@ -167,7 +171,7 @@ default_args = {
 }
 
 dag = DAG('transform_tweets_DAG',
-          schedule_interval='0 0 * * *',
+          schedule_interval='5 0 * * *',
           catchup=False,
           default_args=default_args)
 
