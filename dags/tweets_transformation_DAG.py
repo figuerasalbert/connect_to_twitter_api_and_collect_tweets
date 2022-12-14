@@ -30,15 +30,15 @@ def table_dw():
     )
 
     # Connect to Data Lake
-    pg_conn = pg_hook.get_conn()
-    cursor = pg_conn.cursor()
+    pg_conn_dl = pg_hook.get_conn()
+    cursor_dl = pg_conn_dl.cursor()
 
     # Get data from Data Lake
     sql_get_data_dl = "SELECT twitter_user, tweet, tweet_date FROM premierinjuries_twitter_weekly"
 
     # Fetch all data from table in data lake
-    cursor.execute(sql_get_data_dl)
-    tuples_list = cursor.fetchall()
+    cursor_dl.execute(sql_get_data_dl)
+    tuples_list = cursor_dl.fetchall()
 
     tuples_list = tuples_list[1:11]
 
@@ -50,8 +50,8 @@ def table_dw():
     )
 
     # Connect to Data Warehouse
-    pg_conn_1 = pg_hook.get_conn()
-    cursor_1 = pg_conn_1.cursor()
+    pg_conn_dl_1 = pg_hook.get_conn()
+    cursor_dl_1 = pg_conn_dl_1.cursor()
 
     # Drop tweets_without_transformation Table
     sql_drop_table = "DROP TABLE IF EXISTS tweets_without_transformation;"
@@ -60,11 +60,18 @@ def table_dw():
     sql_create_table = "CREATE TABLE IF NOT EXISTS tweets_without_transformation (Twitter_User VARCHAR(255), Tweet VARCHAR(512), Tweet_Date VARCHAR(255))"
 
     # Insert data into tweets_without_transformation
-    cursor_1.execute(sql_drop_table)
-    cursor_1.execute(sql_create_table)
+    cursor_dl_1.execute(sql_drop_table)
+    cursor_dl_1.execute(sql_create_table)
     for row in tuples_list:
-        cursor_1.execute('INSERT INTO tweets_without_transformation VALUES %s', (row,))
-    pg_conn_1.commit()
+        cursor_dl_1.execute('INSERT INTO tweets_without_transformation VALUES %s', (row,))
+    pg_conn_dl_1.commit()
+
+# 3. Tweets Transformation
+
+
+
+
+
 
 # .... Log the end of the DAG
 def finish_dag():
