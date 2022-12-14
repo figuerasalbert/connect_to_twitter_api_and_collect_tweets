@@ -25,29 +25,7 @@ def start_dag():
 # 2. Connect to Twitter API and get the tweets
 def run_twitter_api():
     #---------------------- Twitter API Credentials ----------------------
-    # Read configs
-    #config = configparser.ConfigParser()
-    #config.read('my_config.ini')
-    #config.sections()
-
-    #api_key = config['twitter']['api_key']
-    #api_key_secret = config['twitter']['api_key_secret']
-
-    #access_token = config['twitter']['access_token']
-    #access_token_secret = config['twitter']['access_token_secret']
-    #api_key = "HwElQ5vIabPZFJd26PbFrvRnU"
-    #api_key_secret = "l9WNDhziEzzVROMWlAWsNKUg57P3ZTD9B8SDaZJtil6G7kvpTC"
-    #access_token = "1523632496998559746-yz0Z9Zc6Ja9pk9ZGjcNB27dulCAO29"
-    #access_token_secret = "dOFz7UeCphlUdbscKL02YuDH26tmkJoMcM8E8gXU8k55e"
-
-    #f = open("/dags/twitter_api_credentials.txt", "r")
-    #lines = f.readlines()
-    #api_key = (lines[0].split())[2]
-    #api_key_secret = (lines[1].split())[2]
-    #access_token = (lines[2].split())[2]
-    #access_token_secret = (lines[3].split())[2]
-    #f.close()
-
+    # Read .env and get the credentials
     load_dotenv()
     api_key = os.getenv('api_key')
     api_key_secret = os.getenv('api_key_secret')
