@@ -54,7 +54,7 @@ def table_dw():
     cursor_1 = pg_conn_1.cursor()
 
     # Drop tweets_without_transformation Table
-    sql_drop_table = "DROP TABLE tweets_without_transformation;"
+    sql_drop_table = "DROP TABLE IF EXISTS tweets_without_transformation;"
 
     # Create New tweets_without_transformation Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS tweets_without_transformation (Twitter_User VARCHAR(255), Tweet VARCHAR(512), Tweet_Date VARCHAR(255))"
