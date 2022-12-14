@@ -63,7 +63,7 @@ def table_dw():
     cursor_1.execute(sql_drop_table)
     cursor_1.execute(sql_create_table)
     for row in tuples_list:
-        cursor_1.execute('INSERT INTO tweets_without_transformation', (row,))
+        cursor_1.execute('INSERT INTO tweets_without_transformation VALUES %s', (row,))
     pg_conn_1.commit()
 
 # .... Log the end of the DAG
