@@ -2,5 +2,4 @@
 .idea
 .DS_Store
 dags/.DS_Store
-dags/python_scripts/config.ini
 dags/python_scripts/functions/.DS_Store
