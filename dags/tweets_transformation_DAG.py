@@ -43,7 +43,7 @@ def table_dw():
     # ---------------------- Create table into Data Warehouse ----------------------
     # Data Warehouse Credentials
     pg_hook = PostgresHook(
-        postgres_conn_id='tweets_warehouse_test',
+        postgres_conn_id='tweets_warehouse',
         schema='tweets'
     )
 
@@ -69,7 +69,7 @@ def transform_tweets():
     # ---------------------- Connect and Get Data from Data Warehouse ----------------------
     # Data Warehouse Credentials
     pg_hook = PostgresHook(
-        postgres_conn_id='tweets_warehouse_test',
+        postgres_conn_id='tweets_warehouse',
         schema='tweets'
     )
 
