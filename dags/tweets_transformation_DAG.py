@@ -104,7 +104,7 @@ def transform_tweets():
     twitter_df['Full_Name_Player'] = name_player[0]
 
     # Getting new columns with the first and second name of the injured player
-    twitter_df['Full_Name_Player'] = twitter_df.full_name_player.str.strip()
+    #twitter_df['Full_Name_Player'] = twitter_df.full_name_player.str.strip()
     twitter_df[['First_name', 'Second_Name']] = twitter_df['Full_Name_Player'].str.split(' ', n=1, expand=True)
 
 
