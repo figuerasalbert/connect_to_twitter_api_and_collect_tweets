@@ -90,7 +90,7 @@ def load_data_lake(ti):
     )
 
     # Drop PremierInjuries_Twitter Table
-    sql_drop_table = "DROP TABLE PremierInjuries_Twitter_weekly;"
+    sql_drop_table = "DROP TABLE IF EXISTS PremierInjuries_Twitter_weekly;"
 
     # Create new PremierInjuries_Twitter Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS PremierInjuries_Twitter_weekly (Twitter_User VARCHAR(255), Tweet VARCHAR(512), Tweet_Date VARCHAR(255), upload_time timestamp DEFAULT CURRENT_TIMESTAMP);"
