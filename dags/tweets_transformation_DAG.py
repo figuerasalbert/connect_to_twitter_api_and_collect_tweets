@@ -121,7 +121,7 @@ def transform_tweets():
 
     twitter_df['Expected_Return_Date'] = pd.to_datetime(twitter_df['Expected_Return_Date']).dt.date
 
-    twitter_df['Expected_Return_Date'] = twitter_df['Expected_Return_Date'].fillna('NA')
+    twitter_df['Expected_Return_Date'] = twitter_df['Expected_Return_Date'].fillna('No Return Date')
 
 
     # Getting a new column with status
