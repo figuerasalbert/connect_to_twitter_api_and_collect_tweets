@@ -154,7 +154,7 @@ def transform_tweets():
     pg_conn_dw.commit()
 
     # Extract twitter data from nested list
-    twitter_data = tweets_list[0]
+    #twitter_data = tweets_list[0]
 
     # Insert data into Data Lake
     pg_hook.insert_rows(table="weekly_tweets", rows=twitter_data)
