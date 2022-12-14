@@ -77,7 +77,7 @@ default_args = {
     'start_date': datetime.datetime(2022, 12, 10)
 }
 
-dag = DAG('twitter_api_DAG',
+dag = DAG('transform_tweets_DAG',
           schedule_interval='0 0 * * *',
           catchup=False,
           default_args=default_args)
