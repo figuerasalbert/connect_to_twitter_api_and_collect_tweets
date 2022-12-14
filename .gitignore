@@ -1,2 +1,4 @@
+# It is a git ignore file
 .idea
 .DS_Store
+dags/.env
