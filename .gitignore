@@ -2,3 +2,5 @@
 .idea
 .DS_Store
 dags/.env
+dags/.DS_Store
+dags/python_scripts/config.ini
