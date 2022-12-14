@@ -142,7 +142,7 @@ def transform_tweets():
     sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets;"
 
     # Create New tweets_without_transformation Table
-    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
+    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
                         Tweet_Date VARCHAR(255), Player VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
                         Status VARCHAR(255))"
 
