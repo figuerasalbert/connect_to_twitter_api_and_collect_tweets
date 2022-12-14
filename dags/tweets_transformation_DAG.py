@@ -98,10 +98,14 @@ def transform_tweets():
 
     # Getting a new column with the name of the injured player
     name_player = twitter_df['Tweet'].str.split('#FPL Update: ', n=1, expand=True)
-    twitter_df['Player'] = name_player[1]
+    twitter_df['Full_Name_Player'] = name_player[1]
 
-    name_player = twitter_df['Player'].str.split(' -', n=1, expand=True)
-    twitter_df['Player'] = name_player[0]
+    name_player = twitter_df['Full_Name_Player'].str.split(' -', n=1, expand=True)
+    twitter_df['Full_Name_Player'] = name_player[0]
+
+    # Getting new columns with the first and second name of the injured player
+    twitter_df['Full_Name_Player'] = twitter_df.full_name_player.str.strip()
+    twitter_df[['First_name', 'Second_Name']] = twitter_df['Full_Name_Player'].str.split(' ', n=1, expand=True)
 
 
     # Getting a new column with the type of injury
@@ -143,7 +147,8 @@ def transform_tweets():
 
     # Create New tweets_without_transformation Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
-                        Tweet_Date VARCHAR(255), Player VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
+                        Tweet_Date VARCHAR(255), Full_Name_Player VARCHAR(255), First_Name VARCHAR(255), \
+                        Second_Name VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
                         Status VARCHAR(255))"
 
     # Execute SQL statements
@@ -152,9 +157,6 @@ def transform_tweets():
 
     # Commit
     pg_conn_dw.commit()
-
-    # Extract twitter data from nested list
-    #twitter_data = tweets_list[0]
 
     # Insert data into Data Lake
     pg_hook.insert_rows(table="weekly_tweets", rows=tweets_list)
