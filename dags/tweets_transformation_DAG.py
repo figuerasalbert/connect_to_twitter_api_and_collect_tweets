@@ -157,7 +157,7 @@ def transform_tweets():
     #twitter_data = tweets_list[0]
 
     # Insert data into Data Lake
-    pg_hook.insert_rows(table="weekly_tweets", rows=twitter_data)
+    pg_hook.insert_rows(table="weekly_tweets", rows=tweets_list)
 
 # 4. Log the end of the DAG
 def finish_dag():
