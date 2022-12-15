@@ -47,7 +47,7 @@ def tweets_db():
 def datawarehouse_db(ti):
     # ---------------------- Get the data from the previous task ----------------------
     # Get the data from the previous task
-    data = ti.xcom_pull(task_ids = ['get_tweets_task'])
+    data = ti.xcom_pull(task_ids = ['tweets_db_task'])
     if not data:
         raise ValueError('No value currently stored in XComs')
 
