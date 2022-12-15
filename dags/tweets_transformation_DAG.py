@@ -48,8 +48,8 @@ def table_dw():
     )
 
     # Connect to Data Warehouse
-    pg_conn_dl_1 = pg_hook.get_conn()
-    cursor_dl_1 = pg_conn_dl_1.cursor()
+    pg_conn_dw = pg_hook.get_conn()
+    cursor_dw = pg_conn_dw.cursor()
 
     # Drop tweets_without_transformation Table
     sql_drop_table = "DROP TABLE IF EXISTS tweets_without_transformation;"
@@ -58,11 +58,11 @@ def table_dw():
     sql_create_table = "CREATE TABLE IF NOT EXISTS tweets_without_transformation (Twitter_User VARCHAR(255), Tweet VARCHAR(512), Tweet_Date VARCHAR(255))"
 
     # Insert data into tweets_without_transformation
-    cursor_dl_1.execute(sql_drop_table)
-    cursor_dl_1.execute(sql_create_table)
+    cursor_dw.execute(sql_drop_table)
+    cursor_dw.execute(sql_create_table)
     for row in tweets:
-        cursor_dl_1.execute('INSERT INTO tweets_without_transformation VALUES %s', (row,))
-    pg_conn_dl_1.commit()
+        cursor_dw.execute('INSERT INTO tweets_without_transformation VALUES %s', (row,))
+    pg_conn_dw.commit()
 
 # 3. Tweets Transformation
 def transform_tweets():
@@ -74,15 +74,15 @@ def transform_tweets():
     )
 
     # Connect to Data Warehouse
-    pg_conn_dw = pg_hook.get_conn()
-    cursor_dw = pg_conn_dw.cursor()
+    pg_conn_dw_1 = pg_hook.get_conn()
+    cursor_dw_1 = pg_conn_dw_1.cursor()
 
     # Get the data from the Data Warehouse
     sql_get_data_dw = "SELECT * FROM tweets_without_transformation"
 
     # Fetch all data from Data Warehouse
-    cursor_dw.execute(sql_get_data_dw)
-    tweets = cursor_dw.fetchall()
+    cursor_dw_1.execute(sql_get_data_dw)
+    tweets = cursor_dw_1.fetchall()
 
     # ---------------------- Create DataFrame ----------------------
     # Define columns
@@ -136,6 +136,8 @@ def transform_tweets():
 
     tweets_list = [tuple(x) for x in twitter_df.to_numpy()]
 
+
+
     # ---------------------- Load Transformed Data into Data Warehouse ----------------------
     # Drop transformed_tweets Table
     sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets;"
@@ -149,12 +151,12 @@ def transform_tweets():
     sql_drop_previous_table = "DROP TABLE IF EXISTS tweets_without_transformation;"
 
     # Execute SQL statements
-    cursor_dw.execute(sql_drop_table)
-    cursor_dw.execute(sql_create_table)
-    cursor_dw.execute(sql_drop_previous_table)
+    cursor_dw_1.execute(sql_drop_table)
+    cursor_dw_1.execute(sql_create_table)
+    cursor_dw_1.execute(sql_drop_previous_table)
 
     # Commit
-    pg_conn_dw.commit()
+    pg_conn_dw_1.commit()
 
     # Insert data into Data Lake
     pg_hook.insert_rows(table="weekly_tweets", rows=tweets_list)
