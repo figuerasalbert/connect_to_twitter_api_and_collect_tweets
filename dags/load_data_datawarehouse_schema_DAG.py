@@ -7,7 +7,7 @@ from airflow.operators.python_operator import PythonOperator
 
 
 # Packages for Twitter API
-import pandas as pd
+#import pandas as pd
 
 
 # Packages for Connect to the Data Lake
@@ -17,7 +17,8 @@ from airflow.hooks.postgres_hook import PostgresHook
 # ----------------------------- Define Functions -----------------------------
 # 1. Log the start of the DAG
 def start_dag():
-    logging.info("Starting the DAG. Loading the data into 'datawarehouse' database)
+    logging.info("Starting the DAG. Loading the data into 'datawarehouse' database")
+
 
 # 2. Collect data from 'tweets' database
 def tweets_db():
