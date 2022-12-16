@@ -102,6 +102,34 @@ def transform_tweets():
     name_player = twitter_df['Player'].str.split(' -', n=1, expand=True)
     twitter_df['Player'] = name_player[0]
 
+    # Getting new columns with the first and second name of the injured player
+    twitter_df[['First_Name', 'Second_Name']] = twitter_df['Player'].str.split(' ', n=1, expand=True)
+
+    # Getting a new column with the club of the injured player
+    club = twitter_df['Tweet'].str.split('#', n=1, expand=True)
+    twitter_df['Club'] = club[1]
+
+    club = twitter_df['Club'].str.split('#', n=1, expand=True)
+    twitter_df['Club'] = club[1]
+
+    club = twitter_df['Club'].str.split(' ', n=1, expand=True)
+    twitter_df['Club'] = club[0]
+
+    # Create a clubs dictionary
+    club_dict = {'AFC': 'Arsenal', 'AVFC': 'Aston Villa',
+                 'AFCB': 'Bournemouth', 'BrentfordFC': 'Brentford',
+                 'BHAFC': 'Brighton', 'CFC': 'Chelsea',
+                 'CPFC': 'Crystal Palace', 'EFC': 'Everton',
+                 'FFC': 'Fulham', 'LCFC': 'Leicester',
+                 'LUFC': 'Leeds', 'LFC': 'Liverpool',
+                 'MCFC': 'Man City', 'MUFC': 'Man Utd',
+                 'NUFC': 'Newcastle', 'NFFC': 'Nott\'m Forest',
+                 'SaintsFC': 'Southampton', 'COYS': 'Spurs',
+                 'WHUFC': 'West Ham', 'Wolves': 'Wolves'}
+
+    # Assign the names of clubs
+    twitter_df['Club'] = twitter_df['Club'].map(club_dict)
+
 
     # Getting a new column with the type of injury
     injury = twitter_df['Tweet'].str.split('- ', n=1, expand=True)
@@ -144,7 +172,8 @@ def transform_tweets():
 
     # Create New tweets_without_transformation Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
-                        Tweet_Date VARCHAR(255), Player VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
+                        Tweet_Date VARCHAR(255), Player VARCHAR(255), First Name VARCHAR(255), Second Name VARCHAR(255),\
+                        Club VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
                         Status VARCHAR(255))"
 
     # Drop tweets_without_transformation Table

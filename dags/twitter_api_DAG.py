@@ -8,7 +8,6 @@ from airflow.operators.python_operator import PythonOperator
 # Packages for Twitter API
 import pandas as pd
 import tweepy
-#import configparser
 import datetime
 from dotenv import load_dotenv
 import os
