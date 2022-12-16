@@ -104,16 +104,26 @@ def transform_tweets():
 
     # Getting new columns with the first and second name of the injured player
     twitter_df[['First_Name', 'Second_Name']] = twitter_df['Player'].str.split(' ', n=1, expand=True)
+    # Deleting white spaces before de first or second name
+    tweets_df['first_name'] = tweets_df['first_name'].str.strip()
+    tweets_df['second_name'] = tweets_df['second_name'].str.strip()
+
 
     # Getting a new column with the club of the injured player
     club = twitter_df['Tweet'].str.split('#', n=1, expand=True)
-    twitter_df['Club'] = club[1]
+    twitter_df['team'] = club[1]
 
-    club = twitter_df['Club'].str.split('#', n=1, expand=True)
-    twitter_df['Club'] = club[1]
+    club = twitter_df['team'].str.split('#', n=1, expand=True)
+    twitter_df['team'] = club[1]
 
-    club = twitter_df['Club'].str.split(' ', n=1, expand=True)
-    twitter_df['Club'] = club[0]
+    club = twitter_df['team'].str.split(' ', n=1, expand=True)
+    twitter_df['team'] = club[0]
+
+    # Deleting tweets from other competitons
+    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#fifaworldcup") == False]
+    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#Qatar2022") == False]
+    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#WorldCup") == False]
+    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#teamNORTH") == False]
 
     # Create a clubs dictionary
     club_dict = {'AFC': 'Arsenal', 'AVFC': 'Aston Villa',
@@ -123,12 +133,12 @@ def transform_tweets():
                  'FFC': 'Fulham', 'LCFC': 'Leicester',
                  'LUFC': 'Leeds', 'LFC': 'Liverpool',
                  'MCFC': 'Man City', 'MUFC': 'Man Utd',
-                 'NUFC': 'Newcastle', 'NFFC': 'Nott\'m Forest',
+                 'NUFC': 'Newcastle', 'NFFC': "Nott'm Forest",
                  'SaintsFC': 'Southampton', 'COYS': 'Spurs',
                  'WHUFC': 'West Ham', 'Wolves': 'Wolves'}
 
     # Assign the names of clubs
-    twitter_df['Club'] = twitter_df['Club'].map(club_dict)
+    twitter_df['team'] = twitter_df['team'].map(club_dict)
 
 
     # Getting a new column with the type of injury
@@ -173,7 +183,7 @@ def transform_tweets():
     # Create New tweets_without_transformation Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
                         Tweet_Date VARCHAR(255), Player VARCHAR(255), First_Name VARCHAR(255), Second_Name VARCHAR(255),\
-                        Club VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
+                        Team VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
                         Status VARCHAR(255))"
 
     # Drop tweets_without_transformation Table
