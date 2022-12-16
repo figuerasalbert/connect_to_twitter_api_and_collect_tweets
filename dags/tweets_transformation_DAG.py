@@ -105,8 +105,8 @@ def transform_tweets():
     # Getting new columns with the first and second name of the injured player
     twitter_df[['First_Name', 'Second_Name']] = twitter_df['Player'].str.split(' ', n=1, expand=True)
     # Deleting white spaces before de first or second name
-    tweets_df['first_name'] = tweets_df['first_name'].str.strip()
-    tweets_df['second_name'] = tweets_df['second_name'].str.strip()
+    twitter_df['first_name'] = twitter_df['first_name'].str.strip()
+    twitter_df['second_name'] = twitter_df['second_name'].str.strip()
 
 
     # Getting a new column with the club of the injured player
@@ -211,7 +211,7 @@ default_args = {
     'start_date': datetime.datetime(2022, 12, 10)
 }
 
-dag = DAG('transform_tweets_DAG',
+dag = DAG('task_02_transform_tweets_DAG',
           schedule_interval='5 0 * * *',
           catchup=False,
           default_args=default_args)
