@@ -201,7 +201,7 @@ def set_id(ti):
     missing.pop('first_name')
     missing.pop('second_name')
     missing.pop('team')
-    missing.pop('code')
+
 
 
     # Add new successful joins to assigned
