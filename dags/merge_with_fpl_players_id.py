@@ -4,6 +4,11 @@ import logging
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
+# Packages for the data transforming
+import pandas as pd
+from unidecode import unidecode
+
+
 # Packages for Connect to the Data Lake
 from airflow.hooks.postgres_hook import PostgresHook
 
