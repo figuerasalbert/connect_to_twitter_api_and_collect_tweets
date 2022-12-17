@@ -120,10 +120,10 @@ def transform_tweets():
     twitter_df['team'] = club[0]
 
     # Deleting tweets from other competitons
-    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#fifaworldcup") == False]
-    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#Qatar2022") == False]
-    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#WorldCup") == False]
-    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#teamNORTH") == False]
+    twitter_df = twitter_df[twitter_df["Tweet"].str.contains("#fifaworldcup") == False]
+    twitter_df = twitter_df[twitter_df["Tweet"].str.contains("#Qatar2022") == False]
+    twitter_df = twitter_df[twitter_df["Tweet"].str.contains("#WorldCup") == False]
+    twitter_df = twitter_df[twitter_df["Tweet"].str.contains("#teamNORTH") == False]
 
     # Create a clubs dictionary
     club_dict = {'AFC': 'Arsenal', 'AVFC': 'Aston Villa',
