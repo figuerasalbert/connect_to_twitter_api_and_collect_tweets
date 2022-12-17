@@ -114,7 +114,7 @@ def set_id(ti):
                        how='left').fillna(0)
 
     missing.pop("web_name")
-    missing.pop('team')
+
 
     # Add new successful joins to assigned
     assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
@@ -130,7 +130,7 @@ def set_id(ti):
                        how='left').fillna(0)
 
     missing.pop("web_name")
-    missing.pop('team')
+
 
     # Add new successful joins to assigned
     assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
@@ -146,7 +146,7 @@ def set_id(ti):
                        how='left').fillna(0)
 
     missing.pop("web_name")
-    missing.pop('team')
+
 
     # Add new successful joins to assigned
     assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
