@@ -101,10 +101,10 @@ def set_id(ti):
                   how='left').fillna(0)
 
     # Joined successfully
-    assigned = df[df.code != 0]
+    assigned = df[df['code'].notnull()]
 
     # Joined unsuccessfully
-    missing = df[df.code == 0]
+    missing = df[df['code'].isnull()]
     missing.pop("code")
 
     # Join 2 - based on player, web_name and team
@@ -116,10 +116,10 @@ def set_id(ti):
     missing.pop("web_name")
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing.code != 0]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
 
     # Joined unsuccessfully
-    missing = missing[missing.code == 0]
+    missing = df[df['code'].isnull()]
     missing.pop("code")
 
     # Join 3 - based on first_name, web_name and team
@@ -131,10 +131,10 @@ def set_id(ti):
     missing.pop("web_name")
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing.code != 0]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
 
     # Joined unsuccessfully
-    missing = missing[missing.code == 0]
+    missing = df[df['code'].isnull()]
     missing.pop('code')
 
     # Join 4 - based on second_name, web_name and team
@@ -146,10 +146,10 @@ def set_id(ti):
     missing.pop("web_name")
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing.code != 0]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
 
     # Joined unsuccessfully
-    missing = missing[missing.code == 0]
+    missing = df[df['code'].isnull()]
     missing.pop('code')
 
     # Join 5 - based only on first and second name, not team because a player could have changed of club
@@ -160,10 +160,10 @@ def set_id(ti):
 
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing.code != 0]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
 
     # Joined unsuccessfully
-    missing = missing[missing.code == 0]
+    missing = df[df['code'].isnull()]
     missing.pop('code')
 
     # Join 6 - based only on first_name and web_name, not club because a player could have changed of club
@@ -173,10 +173,10 @@ def set_id(ti):
                        how='left').fillna(0)
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing.code != 0]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
 
     # Joined unsuccessfully
-    missing = missing[missing.code == 0]
+    missing = df[df['code'].isnull()]
     missing.pop('code')
 
     # Join 7 - based only on second_name and web_name, not club because a player could have changed of club
@@ -186,10 +186,10 @@ def set_id(ti):
                        how='left').fillna(0)
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing.code != 0]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
 
     # Joined unsuccessfully
-    missing = missing[missing.code == 0]
+    missing = df[df['code'].isnull()]
     missing.pop('code')
 
     # Join 8 - based only on player and web_name, not club because a player could have changed of club
@@ -199,10 +199,10 @@ def set_id(ti):
                        how='left').fillna(0)
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing.code != 0]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
 
     # Joined unsuccessfully
-    missing = missing[missing.code == 0]
+    missing = df[df['code'].isnull()]
 
     tweets_list = [tuple(x) for x in assigned.to_numpy()]
 
