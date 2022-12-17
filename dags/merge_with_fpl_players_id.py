@@ -230,7 +230,6 @@ def set_id(ti):
     print('Join 8 successful')
 
     tweets_list = [tuple(x) for x in assigned.values()]
-    print(tweets_list)
 
     return tweets_list
 
