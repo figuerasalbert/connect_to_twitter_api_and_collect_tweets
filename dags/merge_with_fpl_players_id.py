@@ -40,9 +40,17 @@ def tweets_db():
 
     return tweets_list
 
-
 # 3. Assign fpl_player_id to injured players from @PremierInjuries
 def set_id(ti):
+    # ---------------------- Get the data from the previous task ----------------------
+    # Get the data from the previous task
+    data = ti.xcom_pull(task_ids = ['tweets_db_task'])
+    if not data:
+        raise ValueError('No value currently stored in XComs')
+
+    # Extract data from nested list
+    tweets_data = data[0]
+
     # ---------------------- Get the data from the previous task ----------------------
     # Get the data from the previous task
     data = ti.xcom_pull(task_ids = ['tweets_db_task'])
@@ -297,4 +305,4 @@ finish_task = PythonOperator(
 
 
 # ----------------------------- Trigger Tasks -----------------------------
-start_task >> assign_id_player_dag >> update_weekly_tweets_table_dag >> finish_task
+start_task >> tweets_db_dag >> assign_id_player_dag >> update_weekly_tweets_table_dag >> finish_task
