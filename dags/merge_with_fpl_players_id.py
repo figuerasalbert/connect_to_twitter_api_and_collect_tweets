@@ -53,7 +53,7 @@ def set_id(ti):
     tweets_data = data[0]
 
     # Create a DataFrame
-    columns = ['Tweet', 'Tweet_Date', 'Player', 'First_Name', 'Second_Name', 'Team',
+    columns = ['Twitter_User', 'Tweet', 'Tweet_Date', 'Player', 'First_Name', 'Second_Name', 'Team',
                'Injury', 'Expected_Return_Date', 'Status']
 
     tweets_df = pd.DataFrame(tweets_data, columns = columns)
