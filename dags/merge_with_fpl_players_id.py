@@ -61,8 +61,8 @@ def set_id(ti):
     tweets_data = data[0]
 
     # Create a DataFrame
-    columns = ['Twitter_User', 'Tweet', 'Tweet_Date', 'Player', 'First_Name', 'Second_Name', 'Team',
-               'Injury', 'Expected_Return_Date', 'Status']
+    columns = ['id_tweet','Twitter_User', 'Tweet', 'Tweet_Date', 'Player', 'First_Name', 'Second_Name',
+               'Team', 'Injury', 'Expected_Return_Date', 'Status']
 
     tweets_df = pd.DataFrame(tweets_data, columns = columns)
 
@@ -235,10 +235,10 @@ def load_data(ti):
     sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets;"
 
     # Create New weekly_tweets Table
-    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
-                            Tweet_Date VARCHAR(255), Player VARCHAR(255), First_Name VARCHAR(255), Second_Name VARCHAR(255),\
-                            Team VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
-                            Status VARCHAR(255), code INT)"
+    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (id_tweet INT, Twitter_User VARCHAR(255)," \
+                        "Tweet VARCHAR(512), Tweet_Date VARCHAR(255), Player VARCHAR(255), First_Name VARCHAR(255),"\
+                        "Second_Name VARCHAR(255), Team VARCHAR(255), Injury VARCHAR(255),"\
+                        "Expected_Return_Date VARCHAR(255), Status VARCHAR(255), code INT)"
 
     # # Execute SQL statements
     cursor_dw.execute(sql_drop_table)
