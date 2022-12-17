@@ -269,7 +269,6 @@ start_task = PythonOperator(
 tweets_db_dag = PythonOperator(
     task_id = 'tweets_db_task',
     python_callable = tweets_db,
-    do_xcom_push = True,
     dag = dag
 )
 
