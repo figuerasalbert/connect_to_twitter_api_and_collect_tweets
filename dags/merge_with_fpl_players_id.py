@@ -145,21 +145,21 @@ def set_id(ti):
 
 
     # Join 4 - based on second_name, web_name and team
-    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
-                       left_on=['Second_Name', 'Team'],
-                       right_on=['web_name', 'team'],
-                       how='left')
+    #missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
+                       #left_on=['Second_Name', 'Team'],
+                       #right_on=['web_name', 'team'],
+                       #how='left')
 
-    missing.pop("web_name")
+    #missing.pop("web_name")
 
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
+    #assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
 
     # Joined unsuccessfully
-    missing = missing[missing['code'].isnull()]
-    missing.pop("code")
-    print('Join 4 succesfull')
+    #missing = missing[missing['code'].isnull()]
+    #missing.pop("code")
+    #print('Join 4 succesfull')
 
     # Join 5 - based only on first and second name, not team because a player could have changed of club
     missing = pd.merge(missing, elements_df[['first_name', 'second_name', 'code']],
@@ -229,6 +229,7 @@ def set_id(ti):
     print('Join 8 succesfull')
 
     tweets_list = [tuple(x) for x in assigned.to_numpy()]
+    print(tweets_list)
 
     return tweets_list
 
