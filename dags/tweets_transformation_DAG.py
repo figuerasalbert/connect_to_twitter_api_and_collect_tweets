@@ -94,6 +94,8 @@ def transform_tweets():
     # Replace missing values
     twitter_df = twitter_df.replace(['NA'], np.nan)
 
+    # Getting a new column with an id_tweet
+    twitter_df['id_tweet'] = twitter_df.index + 1
 
     # Getting a new column with the name of the injured player
     name_player = twitter_df['Tweet'].str.split('#FPL Update: ', n=1, expand=True)
@@ -169,11 +171,6 @@ def transform_tweets():
     twitter_df['Status'] = status[0]
 
     twitter_df['Status'] = twitter_df['Status'].replace('Ruled', 'Ruled Out', regex = True)
-
-
-    # Getting a new column with an id_tweet
-
-    twitter_df['id_tweet'] = twitter_df.index +1
 
 
     print('Data successfully transformed')
