@@ -143,6 +143,7 @@ def set_id(ti):
     missing.pop("code")
     print('Join 3 succesfull')
 
+    df = df.reset_index()
 
     # Join 4 - based on second_name, web_name and team
     #missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
