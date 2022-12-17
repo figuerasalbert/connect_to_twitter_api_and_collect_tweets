@@ -98,7 +98,7 @@ def set_id(ti):
     df = pd.merge(tweets_df, elements_df[['first_name', 'second_name', 'team', 'code']],
                   left_on=['First_Name', 'Second_Name', 'Team'],
                   right_on=['first_name', 'second_name', 'team'],
-                  how='left').fillna(0)
+                  how='left')
 
     # Joined successfully
     assigned = df[df['code'].notnull()]
@@ -107,11 +107,13 @@ def set_id(ti):
     missing = df[df['code'].isnull()]
     missing.pop("code")
 
+    print('Join 1 succesfull')
+
     # Join 2 - based on player, web_name and team
     missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
                        left_on=['Player', 'Team'],
                        right_on=['web_name', 'team'],
-                       how='left').fillna(0)
+                       how='left')
 
     missing.pop("web_name")
 
@@ -122,12 +124,13 @@ def set_id(ti):
     # Joined unsuccessfully
     missing = missing[missing['code'].isnull()]
     missing.pop("code")
+    print('Join 2 succesfull')
 
     # Join 3 - based on first_name, web_name and team
     missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
                        left_on=['First_Name', 'Team'],
                        right_on=['web_name', 'team'],
-                       how='left').fillna(0)
+                       how='left')
 
     missing.pop("web_name")
 
@@ -138,12 +141,14 @@ def set_id(ti):
     # Joined unsuccessfully
     missing = missing[missing['code'].isnull()]
     missing.pop('code')
+
+    print('Join 3 succesfull')
 
     # Join 4 - based on second_name, web_name and team
     missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
                        left_on=['Second_Name', 'Team'],
                        right_on=['web_name', 'team'],
-                       how='left').fillna(0)
+                       how='left')
 
     missing.pop("web_name")
 
@@ -154,14 +159,15 @@ def set_id(ti):
     # Joined unsuccessfully
     missing = missing[missing['code'].isnull()]
     missing.pop('code')
+
+    print('Join 4 succesfull')
 
     # Join 5 - based only on first and second name, not team because a player could have changed of club
     missing = pd.merge(missing, elements_df[['first_name', 'second_name', 'code']],
                        left_on=['First_Name', 'Second_Name'],
                        right_on=['first_name', 'second_name'],
-                       how='left').fillna(0)
-    missing.pop("first_name")
-    #missing.pop('second_name')
+                       how='left')
+
 
     # Add new successful joins to assigned
     assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
@@ -170,11 +176,13 @@ def set_id(ti):
     missing = missing[missing['code'].isnull()]
     missing.pop('code')
 
+    print('Join 5 succesfull')
+
     # Join 6 - based only on first_name and web_name, not club because a player could have changed of club
     missing = pd.merge(missing, elements_df[['web_name', 'code']],
                        left_on=['First_Name'],
                        right_on=['web_name'],
-                       how='left').fillna(0)
+                       how='left')
 
     missing.pop("web_name")
 
@@ -185,11 +193,13 @@ def set_id(ti):
     missing = missing[missing['code'].isnull()]
     missing.pop('code')
 
+    print('Join 7 succesfull')
+
     # Join 7 - based only on second_name and web_name, not club because a player could have changed of club
     missing = pd.merge(missing, elements_df[['web_name', 'code']],
                        left_on=['Second_Name'],
                        right_on=['web_name'],
-                       how='left').fillna(0)
+                       how='left')
 
     missing.pop("web_name")
 
@@ -204,11 +214,10 @@ def set_id(ti):
     missing = pd.merge(missing, elements_df[['web_name', 'code']],
                        left_on=['Player'],
                        right_on=['web_name'],
-                       how='left').fillna(0)
+                       how='left')
     missing.pop('web_name')
-    missing.pop('first_name')
-    missing.pop('second_name')
-    missing.pop('team')
+
+
 
 
 
@@ -217,6 +226,8 @@ def set_id(ti):
 
     # Joined unsuccessfully
     missing = missing[missing['code'].isnull()]
+
+    print('Join 8 succesfull')
 
     tweets_list = [tuple(x) for x in assigned.to_numpy()]
 
