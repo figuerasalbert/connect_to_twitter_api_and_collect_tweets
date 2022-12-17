@@ -105,8 +105,8 @@ def transform_tweets():
     # Getting new columns with the first and second name of the injured player
     twitter_df[['First_Name', 'Second_Name']] = twitter_df['Player'].str.split(' ', n=1, expand=True)
     # Deleting white spaces before de first or second name
-    twitter_df['first_name'] = twitter_df['first_name'].str.strip()
-    twitter_df['second_name'] = twitter_df['second_name'].str.strip()
+    twitter_df['First_Name'] = twitter_df['First_Name'].str.strip()
+    twitter_df['Second_Name'] = twitter_df['Second_Name'].str.strip()
 
 
     # Getting a new column with the club of the injured player
