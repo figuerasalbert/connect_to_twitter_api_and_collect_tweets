@@ -14,7 +14,6 @@ from airflow.hooks.postgres_hook import PostgresHook
 def start_dag():
     logging.info("Starting the DAG. Loading the data into 'datawarehouse' database")
 
-
 # 2. Collect data from 'tweets' database
 def tweets_db():
     # ---------------------- Connect to Data Warehouse and get data from tweets database ----------------------
@@ -92,8 +91,8 @@ default_args = {
     'start_date': datetime.datetime(2022, 12, 10)
 }
 
-dag = DAG('task_03_load_data_datawarehouse_db',
-          schedule_interval='10 0 * * *',
+dag = DAG('task_04_load_data_datawarehouse_db',
+          schedule_interval='15 0 * * *',
           catchup=False,
           default_args=default_args)
 
