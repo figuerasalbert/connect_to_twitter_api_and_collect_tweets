@@ -94,8 +94,9 @@ def transform_tweets():
     # Replace missing values
     twitter_df = twitter_df.replace(['NA'], np.nan)
 
-    # Getting a new column with an id_tweet
+    # Getting a new column with an id_tweet and change the order of the columns
     twitter_df['id_tweet'] = twitter_df.index + 1
+    twitter_df = twitter_df[['id_tweet','Twitter_User', 'Tweet', 'Tweet_Date']]
 
     # Getting a new column with the name of the injured player
     name_player = twitter_df['Tweet'].str.split('#FPL Update: ', n=1, expand=True)
