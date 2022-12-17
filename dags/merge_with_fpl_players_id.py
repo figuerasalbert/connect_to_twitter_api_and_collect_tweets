@@ -161,7 +161,7 @@ def set_id(ti):
                        right_on=['first_name', 'second_name'],
                        how='left').fillna(0)
     missing.pop("first_name")
-    missing.pop('second_name')
+    #missing.pop('second_name')
 
     # Add new successful joins to assigned
     assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
