@@ -170,6 +170,12 @@ def transform_tweets():
 
     twitter_df['Status'] = twitter_df['Status'].replace('Ruled', 'Ruled Out', regex = True)
 
+
+    # Getting a new column with an id_tweet
+
+    twitter_df['id_tweet'] = twitter_df.index +1
+
+
     print('Data successfully transformed')
 
     tweets_list = [tuple(x) for x in twitter_df.to_numpy()]
@@ -181,7 +187,7 @@ def transform_tweets():
     sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets;"
 
     # Create New weekly_tweets Table
-    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
+    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (id_tweet INT, Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
                         Tweet_Date VARCHAR(255), Player VARCHAR(255), First_Name VARCHAR(255), Second_Name VARCHAR(255),\
                         Team VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
                         Status VARCHAR(255))"
