@@ -63,11 +63,11 @@ def datawarehouse_db(ti):
     # Drop transformed_tweets Table
     sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets;"
 
-    # Create New tweets_without_transformation Table
+    # Create New weekly Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
-                        Tweet_Date VARCHAR(255), Player VARCHAR(255), First_Name VARCHAR(255), Second_Name VARCHAR(255),\
-                        Team VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
-                        Status VARCHAR(255))"
+                            Tweet_Date VARCHAR(255), Player VARCHAR(255), First_Name VARCHAR(255), Second_Name VARCHAR(255),\
+                            Team VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
+                            Status VARCHAR(255), code INT)"
 
     # Execute SQL statements
     cursor_dw_1.execute(sql_drop_table)
