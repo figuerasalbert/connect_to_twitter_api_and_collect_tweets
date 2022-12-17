@@ -147,9 +147,9 @@ def set_id(ti):
 
     # Join 4 - based on second_name, web_name and team
     missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
-                       #left_on=['Second_Name', 'Team'],
-                       #right_on=['web_name', 'team'],
-                       #how='left')
+                       left_on=['Second_Name', 'Team'],
+                       right_on=['web_name', 'team'],
+                       how='left')
 
     missing.pop("web_name")
 
