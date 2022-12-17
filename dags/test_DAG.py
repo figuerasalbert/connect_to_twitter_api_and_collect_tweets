@@ -253,7 +253,6 @@ def set_id(ti):
     cursor_dw.execute(sql_create_table)
     pg_conn_dw.commit()
 
-
     # Create a list of tuples representing the rows in the dataframe
     rows = [tuple(x) for x in assigned.values]
 
