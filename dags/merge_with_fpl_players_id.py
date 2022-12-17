@@ -96,7 +96,9 @@ def set_id(ti):
     # ---------------------- Join tweets_df with elements_df, considering fpl player id ----------------------
     # Join 1 - based on first and second name, and team
     df = pd.merge(tweets_df, elements_df[['first_name', 'second_name', 'team', 'code']],
-                  on=['First_Name', 'Second_Name', 'Team'], how='left').fillna(0)
+                  left_on=['First_Name', 'Second_Name', 'Team'],
+                  right_on=['first_name', 'second_name', 'team'],
+                  how='left').fillna(0)
 
     # Joined successfully
     assigned = df[df.code != 0]
