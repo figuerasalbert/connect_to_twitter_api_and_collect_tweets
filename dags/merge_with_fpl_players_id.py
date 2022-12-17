@@ -116,7 +116,7 @@ def set_id(ti):
     missing.pop("web_name")
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
 
     # Joined unsuccessfully
     missing = df[df['code'].isnull()]
@@ -131,7 +131,7 @@ def set_id(ti):
     missing.pop("web_name")
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
 
     # Joined unsuccessfully
     missing = df[df['code'].isnull()]
@@ -146,7 +146,7 @@ def set_id(ti):
     missing.pop("web_name")
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
 
     # Joined unsuccessfully
     missing = df[df['code'].isnull()]
@@ -160,7 +160,7 @@ def set_id(ti):
 
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
 
     # Joined unsuccessfully
     missing = df[df['code'].isnull()]
@@ -173,7 +173,7 @@ def set_id(ti):
                        how='left').fillna(0)
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
 
     # Joined unsuccessfully
     missing = df[df['code'].isnull()]
@@ -186,7 +186,7 @@ def set_id(ti):
                        how='left').fillna(0)
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
 
     # Joined unsuccessfully
     missing = df[df['code'].isnull()]
@@ -199,7 +199,7 @@ def set_id(ti):
                        how='left').fillna(0)
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull(]])
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
 
     # Joined unsuccessfully
     missing = df[df['code'].isnull()]
