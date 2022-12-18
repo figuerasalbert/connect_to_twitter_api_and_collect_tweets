@@ -47,7 +47,7 @@ def set_id():
     # ---------------------- Get the data from the fantasypl db ----------------------
     # Data Warehouse Credentials
     pg_hook_1 = PostgresHook(
-        postgres_conn_id='dw_fpl',
+        postgres_conn_id='fantasypl_warehouse',
         schema='fantasypl'
     )
     # Connect to data warehouse: fpl
