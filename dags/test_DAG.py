@@ -103,20 +103,20 @@ def set_id():
     print('Join 2 successful')
 
     # Join 4 - based on second_name, web_name and team
-    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
-                       left_on=['Second_Name', 'Team'],
-                       right_on=['web_name', 'team'],
-                       how='left')
+    #missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
+                       #left_on=['Second_Name', 'Team'],
+                       #right_on=['web_name', 'team'],
+                       #how='left')
 
-    missing.pop("web_name")
+    #missing.pop("web_name")
 
     # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
+    #assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
 
     # Joined unsuccessfully
-    missing = missing[missing['code'].isnull()]
-    missing.pop("code")
-    print('Join 4 successful')
+    #missing = missing[missing['code'].isnull()]
+    #missing.pop("code")
+    #print('Join 4 successful')
 
     # Join 3 - based on first_name, web_name and team
     missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
