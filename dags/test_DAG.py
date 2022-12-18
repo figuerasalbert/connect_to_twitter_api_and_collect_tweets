@@ -208,9 +208,9 @@ def set_id():
                        "Expected_Return_Date VARCHAR(255), Status VARCHAR(255), code INT)"
 
     # Drop and Create staging table
-    cursor.execute(sql_drop_stage)
-    cursor.execute(sql_create_table)
-    pg_conn.commit()
+    cursor_dw.execute(sql_drop_stage)
+    cursor_dw.execute(sql_create_table)
+    pg_conn_dw.commit()
 
     # Create a list of tuples representing the rows in the dataframe
     rows = [tuple(x) for x in assigned.values]
