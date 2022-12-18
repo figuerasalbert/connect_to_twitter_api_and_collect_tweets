@@ -102,6 +102,22 @@ def set_id():
     missing.pop("code")
     print('Join 2 successful')
 
+    # Join 4 - based on second_name, web_name and team
+    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
+                       left_on=['Second_Name', 'Team'],
+                       right_on=['web_name', 'team'],
+                       how='left')
+
+    missing.pop("web_name")
+
+    # Add new successful joins to assigned
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
+
+    # Joined unsuccessfully
+    missing = missing[missing['code'].isnull()]
+    missing.pop("code")
+    print('Join 4 successful')
+
     # Join 3 - based on first_name, web_name and team
     missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
                        left_on=['First_Name', 'Team'],
@@ -118,21 +134,6 @@ def set_id():
     missing.pop("code")
     print('Join 3 successful')
 
-    # Join 4 - based on second_name, web_name and team
-    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
-                       left_on=['Second_Name', 'Team'],
-                       right_on=['web_name', 'team'],
-                       how='left')
-
-    missing.pop("web_name")
-
-    # Add new successful joins to assigned
-    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
-
-    # Joined unsuccessfully
-    missing = missing[missing['code'].isnull()]
-    missing.pop("code")
-    print('Join 4 successful')
 
     # Join 5 - based only on first and second name, not team because a player could have changed of club
     missing = pd.merge(missing, elements_df[['first_name', 'second_name', 'code']],
