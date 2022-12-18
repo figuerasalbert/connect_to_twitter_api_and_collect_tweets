@@ -208,7 +208,7 @@ def set_id():
                        "Expected_Return_Date VARCHAR(255), Status VARCHAR(255), code INT)"
 
     # Drop and Create staging table
-    cursor_dw.execute(sql_drop_stage)
+    cursor_dw.execute(sql_drop_table)
     cursor_dw.execute(sql_create_table)
     pg_conn_dw.commit()
 
