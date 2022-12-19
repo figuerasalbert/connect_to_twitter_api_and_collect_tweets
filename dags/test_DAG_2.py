@@ -82,7 +82,7 @@ def set_id():
     # Joined unsuccessfully
     missing = df[df['code'].isnull()]
     missing.pop("code")
-    print('Join 1 successful')
+
 
     # Join 2 - based on player, web_name and team
     missing = pd.merge(tweets_df, elements_df[['web_name', 'team', 'code']],
@@ -98,7 +98,23 @@ def set_id():
     # Joined unsuccessfully
     missing = missing[missing['code'].isnull()]
     missing.pop("code")
-    print('Join 2 successful')
+
+
+    # Join 3 - based on first_name, web_name and team
+    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
+                       left_on=['first_name', 'team'],
+                       right_on=['web_name', 'team'],
+                       how='left')
+
+    missing.pop("web_name")
+
+    # Add new successful joins to assigned
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
+
+    # Joined unsuccessfully
+    missing = missing[missing['code'].isnull()]
+    missing.pop("code")
+
 
     # Join 4 - based on second_name, web_name and team
     missing = pd.merge(tweets_df, elements_df[['web_name', 'team', 'code']],
@@ -114,8 +130,61 @@ def set_id():
     # Joined unsuccessfully
     missing = missing[missing['code'].isnull()]
     missing.pop("code")
-    print('Join 4 successful')
 
+    # Join 5 - based only on first and second name, not team because a player could have changed of club
+    missing = pd.merge(missing, elements_df[['first_name', 'second_name', 'code']],
+                       left_on=['first_name', 'second_name'],
+                       right_on=['first_name', 'second_name'],
+                       how='left')
+
+    # Add new successful joins to assigned
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
+
+    # Joined unsuccessfully
+    missing = missing[missing['code'].isnull()]
+    missing.pop('code')
+
+    # Join 6 based only on first_name and web_name, not club
+    missing = pd.merge(missing, elements_df[['web_name', 'code']],
+                       left_on=['first_name'],
+                       right_on=['web_name'],
+                       how='left')
+
+    missing.pop("web_name")
+
+    # Add new successful joins to assigned
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
+
+    # Joined unsuccessfully
+    missing = missing[missing['code'].isnull()]
+    missing.pop('code')
+
+    # Join 7 - based only on second_name and web_name, not club because a player could have changed of club
+    missing = pd.merge(missing, elements_df[['web_name', 'code']],
+                       left_on=['second_name'],
+                       right_on=['web_name'],
+                       how='left')
+
+    missing.pop("web_name")
+
+    # Add new successful joins to assigned
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
+
+    # Joined unsuccessfully
+    missing = missing[missing['code'].isnull()]
+    missing.pop('code')
+
+    # Join 8 - based only on player and web_name, not club because a player could have changed of club
+    missing = pd.merge(missing, elements_df[['web_name', 'code']],
+                       left_on=['player'],
+                       right_on=['web_name'],
+                       how='left')
+    missing.pop('web_name')
+
+    # Add new successful joins to assigned
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
+    assigned['code'] = pd.to_numeric(assigned['code'])
+    assigned['code'] = assigned['code'].astype('int')
 
 
     # ---------------------- Load data into the Data Warehouse ----------------------
