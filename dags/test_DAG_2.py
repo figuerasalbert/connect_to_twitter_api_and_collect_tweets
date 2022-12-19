@@ -39,10 +39,10 @@ def set_id():
     tuples_list_1 = cursor_1.fetchall()
 
     # Create DataFrame
-    column_names = ['id_tweet', 'twitter_user', 'tweet', 'tweet_date', 'player', 'first_name', 'second_name',
+    columns = ['id_tweet', 'twitter_user', 'tweet', 'tweet_date', 'player', 'first_name', 'second_name',
                'team', 'injury', 'expected_return_date', 'status']
 
-    df1 = pd.DataFrame(tuples_list_1, columns=column_names)
+    tweets_df = pd.DataFrame(tuples_list_1, columns=columns)
 
     ################ Get fpl data from DW
 
@@ -66,14 +66,14 @@ def set_id():
     # Create DataFrame
     column_names = ['first_name', 'second_name', 'web_name', 'team', 'code']
 
-    df2 = pd.DataFrame(tuples_list_2, columns=column_names)
+    elements_df = pd.DataFrame(tuples_list_2, columns=column_names)
 
     # Transform elements_df; no accents
-    df2['first_name'] = df2['first_name'].apply(unidecode)
-    df2['second_name'] = df2['second_name'].apply(unidecode)
+    elements_df['first_name'] = elements_df['first_name'].apply(unidecode)
+    elements_df['second_name'] = elements_df['second_name'].apply(unidecode)
 
     # Join 1 - based on first and second name
-    df = pd.merge(df1, df2[['first_name', 'second_name', 'team', 'code']],
+    df = pd.merge(tweets_df, elements_df[['first_name', 'second_name', 'team', 'code']],
                   on=['first_name', 'second_name', 'team'], how='left')
 
     # Joined successfully
@@ -85,7 +85,7 @@ def set_id():
     print('Join 1 successful')
 
     # Join 2 - based on player, web_name and team
-    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
+    missing = pd.merge(tweets_df, elements_df[['web_name', 'team', 'code']],
                        left_on=['player', 'team'],
                        right_on=['web_name', 'team'],
                        how='left')
@@ -101,7 +101,7 @@ def set_id():
     print('Join 2 successful')
 
     # Join 4 - based on second_name, web_name and team
-    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
+    missing = pd.merge(tweets_df, elements_df[['web_name', 'team', 'code']],
                        left_on=['second_name', 'team'],
                        right_on=['web_name', 'team'],
                        how='left')
