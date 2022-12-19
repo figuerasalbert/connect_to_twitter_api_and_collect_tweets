@@ -39,8 +39,8 @@ def set_id():
     tuples_list_1 = cursor_1.fetchall()
 
     # Create DataFrame
-    column_names = ['id_tweet', 'Twitter_User', 'Tweet', 'Tweet_Date', 'Player', 'First_Name', 'Second_Name',
-               'Team', 'Injury', 'Expected_Return_Date', 'Status']
+    column_names = ['id_tweet', 'twitter_user', 'tweet', 'tweet_date', 'player', 'first_name', 'second_name',
+               'team', 'injury', 'expected_return_date', 'status']
 
     df1 = pd.DataFrame(tuples_list_1, columns=column_names)
 
