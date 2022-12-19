@@ -7,7 +7,7 @@ from airflow.operators.python_operator import PythonOperator
 
 # For Transformation
 import pandas as pd
-import numpy as np
+from unidecode import unidecode
 
 # Connecting to the Data Lake
 from airflow.hooks.postgres_hook import PostgresHook
