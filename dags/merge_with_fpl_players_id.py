@@ -260,7 +260,7 @@ def load_data(ti):
     sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets;"
 
     # Create New weekly_tweets Table
-    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (id_tweet INT, Twitter_User VARCHAR(255)," \
+    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (id_tweet INT PRMARY KEY, Twitter_User VARCHAR(255)," \
                         "Tweet VARCHAR(512), Tweet_Date VARCHAR(255), Player VARCHAR(255), First_Name VARCHAR(255),"\
                         "Second_Name VARCHAR(255), Team VARCHAR(255), Injury VARCHAR(255),"\
                         "Expected_Return_Date VARCHAR(255), Status VARCHAR(255), code INT)"
