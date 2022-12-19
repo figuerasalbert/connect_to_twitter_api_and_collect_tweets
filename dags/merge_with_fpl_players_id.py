@@ -146,10 +146,10 @@ def set_id(ti):
     #df = df.reset_index()
 
     # Join 4 - based on second_name, web_name and team
-    #missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
-                       #left_on=['Second_Name', 'Team'],
-                       #right_on=['web_name', 'team'],
-                       #how='left')
+    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
+                       left_on=['Second_Name', 'Team'],
+                       right_on=['web_name', 'team'],
+                       how='left')
 
     #missing.pop("web_name")
 
@@ -285,7 +285,7 @@ default_args = {
     'start_date': datetime.datetime(2022, 12, 10)
 }
 
-dag = DAG('task_03_assign_fpl_players_id',
+dag = DAG('TEST_WRONG_TO_DELETE_task_03_assign_fpl_players_id',
           schedule_interval='10 0 * * *',
           catchup=False,
           default_args=default_args)

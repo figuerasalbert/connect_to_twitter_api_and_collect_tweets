@@ -117,7 +117,7 @@ def set_id():
 
 
     # Join 4 - based on second_name, web_name and team
-    missing = pd.merge(tweets_df, elements_df[['web_name', 'team', 'code']],
+    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
                        left_on=['second_name', 'team'],
                        right_on=['web_name', 'team'],
                        how='left')
@@ -218,7 +218,7 @@ default_args = {
     'start_date': datetime.datetime(2022, 12, 10)
 }
 
-dag = DAG('TEST_02_DAG_id_players',
+dag = DAG('task_03_assign_fpl_players_id',
           schedule_interval='10 0 * * *',
           catchup=False,
           default_args=default_args)
