@@ -55,7 +55,8 @@ def table_dw():
     sql_drop_table = "DROP TABLE IF EXISTS tweets_without_transformation;"
 
     # Create New tweets_without_transformation Table
-    sql_create_table = "CREATE TABLE IF NOT EXISTS tweets_without_transformation (Twitter_User VARCHAR(255), Tweet VARCHAR(512), Tweet_Date VARCHAR(255))"
+    sql_create_table = "CREATE TABLE IF NOT EXISTS tweets_without_transformation (twitter_user VARCHAR(255)," \
+                       "tweet VARCHAR(512),tweet_date VARCHAR(255))"
 
     # Insert data into tweets_without_transformation
     cursor_dw.execute(sql_drop_table)
@@ -86,7 +87,7 @@ def transform_tweets():
 
     # ---------------------- Create DataFrame ----------------------
     # Define columns
-    columns = ['Twitter_User', 'Tweet', 'Tweet_Date']
+    columns = ['twitter_user', 'tweet', 'tweet_date']
     # Create the DataFrame
     twitter_df = pd.DataFrame(tweets, columns=columns)
 
@@ -96,24 +97,24 @@ def transform_tweets():
 
     # Getting a new column with an id_tweet and change the order of the columns
     twitter_df['id_tweet'] = twitter_df.index + 1
-    twitter_df = twitter_df[['id_tweet','Twitter_User', 'Tweet', 'Tweet_Date']]
+    twitter_df = twitter_df[['id_tweet','twitter_user', 'tweet', 'tweet_date']]
 
     # Getting a new column with the name of the injured player
-    name_player = twitter_df['Tweet'].str.split('#FPL Update: ', n=1, expand=True)
-    twitter_df['Player'] = name_player[1]
+    name_player = twitter_df['tweet'].str.split('#FPL Update: ', n=1, expand=True)
+    twitter_df['player'] = name_player[1]
 
-    name_player = twitter_df['Player'].str.split(' -', n=1, expand=True)
-    twitter_df['Player'] = name_player[0]
+    name_player = twitter_df['player'].str.split(' -', n=1, expand=True)
+    twitter_df['player'] = name_player[0]
 
     # Getting new columns with the first and second name of the injured player
-    twitter_df[['First_Name', 'Second_Name']] = twitter_df['Player'].str.split(' ', n=1, expand=True)
+    twitter_df[['first_name', 'second_name']] = twitter_df['player'].str.split(' ', n=1, expand=True)
     # Deleting white spaces before de first or second name
-    twitter_df['First_Name'] = twitter_df['First_Name'].str.strip()
-    twitter_df['Second_Name'] = twitter_df['Second_Name'].str.strip()
+    twitter_df['first_name'] = twitter_df['first_name'].str.strip()
+    twitter_df['second_name'] = twitter_df['second_name'].str.strip()
 
 
     # Getting a new column with the club of the injured player
-    club = twitter_df['Tweet'].str.split('#', n=1, expand=True)
+    club = twitter_df['tweet'].str.split('#', n=1, expand=True)
     twitter_df['team'] = club[1]
 
     club = twitter_df['team'].str.split('#', n=1, expand=True)
@@ -123,10 +124,10 @@ def transform_tweets():
     twitter_df['team'] = club[0]
 
     # Deleting tweets from other competitons
-    twitter_df = twitter_df[twitter_df["Tweet"].str.contains("#fifaworldcup") == False]
-    twitter_df = twitter_df[twitter_df["Tweet"].str.contains("#Qatar2022") == False]
-    twitter_df = twitter_df[twitter_df["Tweet"].str.contains("#WorldCup") == False]
-    twitter_df = twitter_df[twitter_df["Tweet"].str.contains("#teamNORTH") == False]
+    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#fifaworldcup") == False]
+    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#Qatar2022") == False]
+    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#WorldCup") == False]
+    twitter_df = twitter_df[twitter_df["tweet"].str.contains("#teamNORTH") == False]
 
     # Create a clubs dictionary
     club_dict = {'AFC': 'Arsenal', 'AVFC': 'Aston Villa',
@@ -145,33 +146,33 @@ def transform_tweets():
 
 
     # Getting a new column with the type of injury
-    injury = twitter_df['Tweet'].str.split('- ', n=1, expand=True)
-    twitter_df['Injury'] = injury[1]
+    injury = twitter_df['tweet'].str.split('- ', n=1, expand=True)
+    twitter_df['injury'] = injury[1]
 
-    injury = twitter_df['Injury'].str.split(' #', n=1, expand=True)
-    twitter_df['Injury'] = injury[0]
+    injury = twitter_df['injury'].str.split(' #', n=1, expand=True)
+    twitter_df['injury'] = injury[0]
 
 
     # Getting a new column with the expected return date
-    return_date = twitter_df['Tweet'].str.split('Expected Return: ', n=1, expand=True)
-    twitter_df['Expected_Return_Date'] = return_date[1]
+    return_date = twitter_df['tweet'].str.split('Expected Return: ', n=1, expand=True)
+    twitter_df['expected_return_date'] = return_date[1]
 
-    return_date = twitter_df['Expected_Return_Date'].str.split(' ', n=1, expand=True)
-    twitter_df['Expected_Return_Date'] = return_date[0]
+    return_date = twitter_df['expected_return_date'].str.split(' ', n=1, expand=True)
+    twitter_df['expected_return_date'] = return_date[0]
 
-    twitter_df['Expected_Return_Date'] = pd.to_datetime(twitter_df['Expected_Return_Date']).dt.date
+    twitter_df['expected_return_date'] = pd.to_datetime(twitter_df['expected_return_date']).dt.date
 
-    twitter_df['Expected_Return_Date'] = twitter_df['Expected_Return_Date'].fillna('No Return Date')
+    twitter_df['expected_return_date'] = twitter_df['expected_return_date'].fillna('No Return Date')
 
 
     # Getting a new column with status
-    status = twitter_df['Tweet'].str.split('Status: ', n = 1, expand = True)
-    twitter_df['Status'] = status[1]
+    status = twitter_df['tweet'].str.split('Status: ', n = 1, expand = True)
+    twitter_df['status'] = status[1]
 
-    status = twitter_df['Status'].str.split(' ', n = 2, expand = True)
-    twitter_df['Status'] = status[0]
+    status = twitter_df['status'].str.split(' ', n = 2, expand = True)
+    twitter_df['status'] = status[0]
 
-    twitter_df['Status'] = twitter_df['Status'].replace('Ruled', 'Ruled Out', regex = True)
+    twitter_df['status'] = twitter_df['status'].replace('Ruled', 'Ruled Out', regex = True)
 
 
     print('Data successfully transformed')
@@ -185,10 +186,10 @@ def transform_tweets():
     sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets;"
 
     # Create New weekly_tweets Table
-    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (id_tweet INT, Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
-                        Tweet_Date VARCHAR(255), Player VARCHAR(255), First_Name VARCHAR(255), Second_Name VARCHAR(255),\
-                        Team VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
-                        Status VARCHAR(255))"
+    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (id_tweet INT, twitter_user VARCHAR(255), tweet VARCHAR(512),\
+                        tweet_date VARCHAR(255), player VARCHAR(255), first_name VARCHAR(255), second_name VARCHAR(255),\
+                        team VARCHAR(255), injury VARCHAR(255), expected_return_date VARCHAR(255),\
+                        status VARCHAR(255))"
 
     # Drop tweets_without_transformation Table
     sql_drop_previous_table = "DROP TABLE IF EXISTS tweets_without_transformation;"
