@@ -84,6 +84,26 @@ def set_id():
     missing.pop("code")
     print('Join 1 successful')
 
+    # Join 2 - based on player, web_name and team
+    missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
+                       left_on=['Player', 'Team'],
+                       right_on=['web_name', 'team'],
+                       how='left')
+
+    missing.pop("web_name")
+
+    # Add new successful joins to assigned
+    assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
+
+    # Joined unsuccessfully
+    missing = missing[missing['code'].isnull()]
+    missing.pop("code")
+    print('Join 2 successful')
+
+
+
+
+
     # ---------------------- Load data into the Data Warehouse ----------------------
     # Drop weekly_tweets Table
     sql_drop_table_1 = "DROP TABLE IF EXISTS weekly_tweets_code;"
