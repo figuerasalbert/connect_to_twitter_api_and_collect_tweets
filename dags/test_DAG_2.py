@@ -103,7 +103,7 @@ def set_id():
     rows = [tuple(x) for x in assigned.values]
 
     # Insert the rows into the database
-    pg_hook_1.insert_rows(table="stage_clean_historical_injuries", rows=rows)
+    pg_hook_1.insert_rows(table="weekly_tweets_code", rows=rows)
 
 # 3. Log the end of the DAG
 def finish_dag():
