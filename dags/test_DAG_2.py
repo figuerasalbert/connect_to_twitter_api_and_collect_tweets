@@ -190,16 +190,20 @@ def set_id():
     # Remove duplicate rows
     assigned = assigned.drop_duplicates()
 
+    #Change the order of the columns data frame
+    assigned = assigned[['code', 'id_tweet', 'twitter_user', 'tweet', 'tweet_date', 'player', 'first_name',
+                         'second_name', 'team', 'injury', 'expected_return_date', 'status']]
+
 
     # ---------------------- Load data into the Data Warehouse ----------------------
     # Drop weekly_tweets Table
     sql_drop_table_1 = "DROP TABLE IF EXISTS weekly_tweets_code;"
 
     # Create New weekly_tweets Table
-    sql_create_table_1 = "CREATE TABLE IF NOT EXISTS weekly_tweets_code (id_tweet INT, twitter_user VARCHAR(255)," \
+    sql_create_table_1 = "CREATE TABLE IF NOT EXISTS weekly_tweets_code (code INT, id_tweet INT, twitter_user VARCHAR(255)," \
                          "tweet VARCHAR(512), tweet_date VARCHAR(255), player VARCHAR(255), first_name VARCHAR(255)," \
                          "second_name VARCHAR(255), team VARCHAR(255), injury VARCHAR(255)," \
-                         "expected_return_date VARCHAR(255), status VARCHAR(255), code INT)"
+                         "expected_return_date VARCHAR(255), status VARCHAR(255))"
 
     # Drop and Create staging table
     cursor_1.execute(sql_drop_table_1)
