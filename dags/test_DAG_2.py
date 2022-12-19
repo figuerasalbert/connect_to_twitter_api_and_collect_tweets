@@ -86,7 +86,7 @@ def set_id():
 
     # Join 2 - based on player, web_name and team
     missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
-                       left_on=['Player', 'Team'],
+                       left_on=['player', 'team'],
                        right_on=['web_name', 'team'],
                        how='left')
 
@@ -102,7 +102,7 @@ def set_id():
 
     # Join 4 - based on second_name, web_name and team
     missing = pd.merge(missing, elements_df[['web_name', 'team', 'code']],
-                       left_on=['Second_Name', 'Team'],
+                       left_on=['second_name', 'team'],
                        right_on=['web_name', 'team'],
                        how='left')
 
