@@ -44,6 +44,7 @@ def set_id():
 
     tweets_df = pd.DataFrame(tuples_list_1, columns=columns)
 
+
     ################ Get fpl data from DW
 
     # Data warehouse: fpl
@@ -185,6 +186,9 @@ def set_id():
     assigned = pd.concat([assigned, missing[missing['code'].notnull()]])
     assigned['code'] = pd.to_numeric(assigned['code'])
     assigned['code'] = assigned['code'].astype('int')
+
+    # Remove duplicate rows
+    assigned = assigned.drop_duplicates()
 
 
     # ---------------------- Load data into the Data Warehouse ----------------------
