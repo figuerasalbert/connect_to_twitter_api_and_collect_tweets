@@ -28,7 +28,7 @@ def tweets_db():
     cursor_dw = pg_conn_dw.cursor()
 
     # Get the data from the Data Warehouse
-    sql_get_data_dw = "SELECT * FROM weekly_tweets"
+    sql_get_data_dw = "SELECT * FROM weekly_tweets_code"
 
     # Fetch all data from Data Warehouse
     cursor_dw.execute(sql_get_data_dw)
@@ -64,10 +64,10 @@ def datawarehouse_db(ti):
     sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets;"
 
     # Create New weekly Table
-    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (Twitter_User VARCHAR(255), Tweet VARCHAR(512),\
-                            Tweet_Date VARCHAR(255), Player VARCHAR(255), First_Name VARCHAR(255), Second_Name VARCHAR(255),\
-                            Team VARCHAR(255), Injury VARCHAR(255), Expected_Return_Date VARCHAR(255),\
-                            Status VARCHAR(255), code INT)"
+    sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets_code (id_tweet INT, twitter_user VARCHAR(255)," \
+                         "tweet VARCHAR(512), tweet_date VARCHAR(255), player VARCHAR(255), first_name VARCHAR(255)," \
+                         "second_name VARCHAR(255), team VARCHAR(255), injury VARCHAR(255)," \
+                         "expected_return_date VARCHAR(255), status VARCHAR(255), code INT)"
 
     # Execute SQL statements
     cursor_dw_1.execute(sql_drop_table)
