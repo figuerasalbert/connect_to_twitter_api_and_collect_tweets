@@ -52,7 +52,7 @@ def datawarehouse_db(ti):
     # Data Warehouse Credentials
     pg_hook = PostgresHook(
         postgres_conn_id='tweets_warehouse',
-        schema='datawarehouse'
+        schema='dw_injuries'
     )
 
     # Connect to Data Warehouse
