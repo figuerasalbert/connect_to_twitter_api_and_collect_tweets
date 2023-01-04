@@ -80,7 +80,16 @@ def datawarehouse_db(ti):
     pg_hook.insert_rows(table="weekly_tweets", rows=tweets_data)
 
 
-# 4. Log the end of the DAG
+# 4. DROP table weekly_tweets_code from the db tweets
+def drop_table():
+    # Drop the table from the data base tweets
+    sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets_code;"
+
+    # Fetch all data from Data Warehouse
+    cursor_dw.execute(sql_drop_table)
+
+
+# 5. Log the end of the DAG
 def finish_dag():
     logging.info("Ending the DAG. Tweets are loaded into 'datawarehouse' database")
 
@@ -107,7 +116,7 @@ start_task = PythonOperator(
 
 
 # 2. Collect data from 'tweets' database
-tweets_db_dag = PythonOperator(
+tweets_db_task = PythonOperator(
     task_id = 'tweets_db_task',
     python_callable = tweets_db,
     do_xcom_push = True,
@@ -115,14 +124,22 @@ tweets_db_dag = PythonOperator(
 )
 
 # 3. Load data into 'datawarehouse' database
-datawarehouse_db_dag = PythonOperator(
+datawarehouse_db_task = PythonOperator(
     task_id = 'datawarehouse_db_task',
     python_callable = datawarehouse_db,
     do_xcom_push = True,
     dag = dag
 )
 
-# 4. End Task
+# 4. Drop table
+drop_table_task = PythonOperator(
+    task_id = 'drop_table_task',
+    python_callable = drop_table,
+    dag = dag
+)
+
+
+# 5. End Task
 finish_task = PythonOperator(
     task_id = "finish_task",
     python_callable = finish_dag,
@@ -131,4 +148,4 @@ finish_task = PythonOperator(
 
 
 # ----------------------------- Trigger Tasks -----------------------------
-start_task >> tweets_db_dag >> datawarehouse_db_dag >> finish_task
+start_task >> tweets_db_task >> datawarehouse_db_task >> drop_table_task >> finish_task
