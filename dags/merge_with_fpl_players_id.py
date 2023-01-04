@@ -78,7 +78,7 @@ def set_id(ti):
 
     # SQL Statement: Get data
     sql_get_data = "SELECT first_name, second_name, web_name, " \
-                             "team, code FROM elements;"
+                             "team, code FROM stage_elements;"
 
     # Fetch data
     cursor_2.execute(sql_get_data)
