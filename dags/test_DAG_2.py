@@ -55,7 +55,7 @@ def set_id():
 
     # SQL Statement: Get data
     sql_statement_get_data = "SELECT first_name, second_name, web_name, " \
-                             "team, code FROM gameweeks;"
+                             "team, code FROM stage_elements;"
 
     # Fetch data
     cursor_2.execute(sql_statement_get_data)
