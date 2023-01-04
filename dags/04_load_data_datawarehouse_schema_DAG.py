@@ -94,7 +94,7 @@ def drop_table():
     cursor_dw3 = pg_conn_dw3.cursor()
 
     # Drop the table from the data base tweets
-    sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets_code;"
+    sql_drop_table = "DROP TABLE weekly_tweets_code;"
 
     # Fetch all data from Data Warehouse
     cursor_dw3.execute(sql_drop_table)
