@@ -65,7 +65,7 @@ def datawarehouse_db(ti):
 
     # Create New weekly Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS weekly_tweets (code INT," \
-                        "FOREIGN KEY code REFERENCES store_player_bios(code int4_ops)," \
+                        "FOREIGN KEY (code) REFERENCES store_player_bios(code int4_ops)," \
                         "id_tweet INT PRIMARY KEY, twitter_user VARCHAR(255)," \
                          "tweet VARCHAR(512), tweet_date VARCHAR(255), player VARCHAR(255), first_name VARCHAR(255)," \
                          "second_name VARCHAR(255), team VARCHAR(255), injury VARCHAR(255)," \
