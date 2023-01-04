@@ -98,6 +98,8 @@ def drop_table():
 
     # Fetch all data from Data Warehouse
     cursor_dw3.execute(sql_drop_table)
+    # Commit
+    pg_conn_dw_3.commit()
 
 
 # 5. Log the end of the DAG
