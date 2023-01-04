@@ -57,6 +57,7 @@ def set_id():
     sql_statement_get_data = "SELECT first_name, second_name, web_name, " \
                              "team, code FROM gameweeks;"
 
+
     # Fetch data
     cursor_2.execute(sql_statement_get_data)
     tuples_list_2 = cursor_2.fetchall()
