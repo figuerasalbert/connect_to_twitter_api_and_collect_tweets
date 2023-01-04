@@ -20,8 +20,7 @@ def start_dag():
 
 # 2. Collect data from 'tweets' database
 def set_id():
-    ################ Get injuries data from DW
-
+    # ---------------------- Get tweets data from DW ----------------------
     # Data warehouse: injuries
     pg_hook_1 = PostgresHook(
         postgres_conn_id='tweets_warehouse',
@@ -44,9 +43,7 @@ def set_id():
 
     tweets_df = pd.DataFrame(tuples_list_1, columns=columns)
 
-
-    ################ Get fpl data from DW
-
+    # ---------------------- Get fpl data from DW ----------------------
     # Data warehouse: fpl
     pg_hook_2 = PostgresHook(
         postgres_conn_id='fantasypl_warehouse',
@@ -58,7 +55,7 @@ def set_id():
 
     # SQL Statement: Get data
     sql_statement_get_data = "SELECT first_name, second_name, web_name, " \
-                             "team, code FROM stage_elements;"
+                             "team, code FROM gameweeks;"
 
     # Fetch data
     cursor_2.execute(sql_statement_get_data)
@@ -69,10 +66,14 @@ def set_id():
 
     elements_df = pd.DataFrame(tuples_list_2, columns=column_names)
 
+    # Delete duplicate rows
+    elements_df = elements_df.drop_duplicates()
+
     # Transform elements_df; no accents
     elements_df['first_name'] = elements_df['first_name'].apply(unidecode)
     elements_df['second_name'] = elements_df['second_name'].apply(unidecode)
 
+    # ---------------------- Join datasets ----------------------
     # Join 1 - based on first and second name
     df = pd.merge(tweets_df, elements_df[['first_name', 'second_name', 'team', 'code']],
                   on=['first_name', 'second_name', 'team'], how='left')
@@ -187,6 +188,7 @@ def set_id():
     assigned['code'] = pd.to_numeric(assigned['code'])
     assigned['code'] = assigned['code'].astype('int')
 
+    # ---------------------- Data transformation ----------------------
     # Remove duplicate rows
     assigned = assigned.drop_duplicates()
 
