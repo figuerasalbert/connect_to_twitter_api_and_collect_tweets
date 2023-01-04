@@ -82,11 +82,22 @@ def datawarehouse_db(ti):
 
 # 4. DROP table weekly_tweets_code from the db tweets
 def drop_table():
+    # ---------------------- Connect to Data Warehouse and get data from tweets database ----------------------
+    # Data Warehouse Credentials
+    pg_hook3 = PostgresHook(
+        postgres_conn_id='tweets_warehouse',
+        schema='tweets'
+    )
+
+    # Connect to Data Warehouse
+    pg_conn_dw3 = pg_hook3.get_conn()
+    cursor_dw3 = pg_conn_dw3.cursor()
+
     # Drop the table from the data base tweets
     sql_drop_table = "DROP TABLE IF EXISTS weekly_tweets_code;"
 
     # Fetch all data from Data Warehouse
-    cursor_dw.execute(sql_drop_table)
+    cursor_dw3.execute(sql_drop_table)
 
 
 # 5. Log the end of the DAG
