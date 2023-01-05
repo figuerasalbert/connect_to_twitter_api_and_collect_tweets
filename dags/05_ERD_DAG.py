@@ -71,8 +71,8 @@ def dw_injuries_db(ti):
     pg_conn_2 = pg_hook_2.get_conn()
     cursor_2 = pg_conn_2.cursor()
 
-    # Delete all records from table player_code
-    sql_delete_records = "DELETE FROM player_code;"
+    # Drop if exists the table player_code
+    sql_drop_table = "DROP IF EXISTS player_code CASCADE"
 
     # Create New tweets_without_transformation Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS player_code (code INT PRIMARY KEY, first_name VARCHAR(255)," \
@@ -80,7 +80,7 @@ def dw_injuries_db(ti):
 
 
     # Execute SQL statements
-    cursor_2.execute(sql_delete_records)
+    cursor_2.execute(sql_drop_table)
     cursor_2.execute(sql_create_table)
 
     # Commit
