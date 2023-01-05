@@ -71,8 +71,8 @@ def dw_injuries_db(ti):
     pg_conn_2 = pg_hook_2.get_conn()
     cursor_2 = pg_conn_2.cursor()
 
-    # Drop player_code Table
-    sql_drop_table = "DROP TABLE IF EXISTS player_code;"
+    # Delete all records from table player_code
+    sql_delete_records = "DELETE FROM player_code;"
 
     # Create New tweets_without_transformation Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS player_code (code INT PRIMARY KEY, first_name VARCHAR(255)," \
