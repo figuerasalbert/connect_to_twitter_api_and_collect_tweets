@@ -217,7 +217,7 @@ default_args = {
 }
 
 dag = DAG('task_02_transform_tweets_DAG',
-          schedule_interval='5 0 * * *',
+          schedule_interval='10 0 * * *',
           catchup=False,
           default_args=default_args)
 

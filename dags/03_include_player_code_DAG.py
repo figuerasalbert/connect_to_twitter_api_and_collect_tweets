@@ -230,7 +230,7 @@ default_args = {
 }
 
 dag = DAG('task_03_assign_fpl_players_id',
-          schedule_interval='10 0 * * *',
+          schedule_interval='20 0 * * *',
           catchup=False,
           default_args=default_args)
 

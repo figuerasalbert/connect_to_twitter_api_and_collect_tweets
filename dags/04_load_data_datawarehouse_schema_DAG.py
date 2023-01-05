@@ -116,7 +116,7 @@ default_args = {
 }
 
 dag = DAG('task_04_load_data_datawarehouse_db',
-          schedule_interval='20 0 * * *',
+          schedule_interval='30 0 * * *',
           catchup=False,
           default_args=default_args)
 
