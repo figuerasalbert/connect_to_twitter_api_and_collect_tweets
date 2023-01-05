@@ -89,7 +89,19 @@ def dw_injuries_db(ti):
     # Insert data into Data Lake
     pg_hook_2.insert_rows(table="player_code", rows = code_player)
 
-# 4. Log the end of the DAG
+
+# 4. Assign Foreign Keys to connect the other tables with player_code table
+def assign_fk():
+    # Alter table weekly_tweets to assign the foreign key
+    sql_alter_table = "ALTER TABLE weekly_tweets ADD FOREIGN KEY (code) REFERENCES player_code(code)"
+
+    # Execute SQL statement
+    cursor_2.execute(sql_alter_table)
+
+    # Commit
+    pg_conn_2.commit()
+
+# 5. Log the end of the DAG
 def finish_dag():
     logging.info('Ending the DAG. ERD created')
 
@@ -128,7 +140,14 @@ save_code_player_task = PythonOperator(
     dag = dag
 )
 
-# 4. End Task
+# 4. Assign Foreign Keys
+assign_fk_task = PythonOperator(
+    task_id = "assign_fk_task",
+    python_callable = assign_fk,
+    dag = dag
+)
+
+# 5. End Task
 finish_task = PythonOperator(
     task_id = "finish_task",
     python_callable = finish_dag,
@@ -136,4 +155,4 @@ finish_task = PythonOperator(
 )
 
 # ----------------------------- Trigger Tasks -----------------------------
-start_task >> get_code_player_task >> save_code_player_task >> finish_task
+start_task >> get_code_player_task >> save_code_player_task >> assign_fk_task >> finish_task
