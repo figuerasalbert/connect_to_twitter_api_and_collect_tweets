@@ -104,10 +104,12 @@ def assign_fk():
 
     # ---------------------- Assign Foreign Keys ----------------------
     # Alter table weekly_tweets to assign the foreign key
-    sql_alter_table = "ALTER TABLE weekly_tweets ADD FOREIGN KEY (code) REFERENCES player_code(code)"
+    sql_alter_table_weekly_tweets = "ALTER TABLE weekly_tweets ADD FOREIGN KEY (code) REFERENCES player_code(code)"
+    sql_alter_table_store_historical_injuries = "ALTER TABLE store_historical_injuries ADD FOREIGN KEY (code) REFERENCES player_code(code)"
 
     # Execute SQL statement
-    cursor_3.execute(sql_alter_table)
+    cursor_3.execute(sql_alter_table_weekly_tweets)
+    cursor_3.execute(sql_alter_table_store_historical_injuries)
 
     # Commit
     pg_conn_3.commit()
