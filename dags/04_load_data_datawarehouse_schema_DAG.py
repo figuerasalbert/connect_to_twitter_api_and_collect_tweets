@@ -82,29 +82,7 @@ def datawarehouse_db(ti):
     pg_hook.insert_rows(table="weekly_tweets", rows=tweets_data)
 
 
-# 4. DROP table weekly_tweets_code from the db tweets
-def drop_table():
-    # ---------------------- Connect to Data Warehouse and get data from tweets database ----------------------
-    # Data Warehouse Credentials
-    pg_hook3 = PostgresHook(
-        postgres_conn_id='tweets_warehouse',
-        schema='tweets'
-    )
-
-    # Connect to Data Warehouse
-    pg_conn_dw3 = pg_hook3.get_conn()
-    cursor_dw3 = pg_conn_dw3.cursor()
-
-    # Drop the table from the data base tweets
-    sql_drop_table = "DROP TABLE weekly_tweets_code;"
-
-    # Fetch all data from Data Warehouse
-    cursor_dw3.execute(sql_drop_table)
-    # Commit
-    pg_conn_dw3.commit()
-
-
-# 5. Log the end of the DAG
+# 4. Log the end of the DAG
 def finish_dag():
     logging.info("Ending the DAG. Tweets are loaded into 'datawarehouse' database")
 
@@ -146,15 +124,7 @@ datawarehouse_db_task = PythonOperator(
     dag = dag
 )
 
-# 4. Drop table
-drop_table_task = PythonOperator(
-    task_id = 'drop_table_task',
-    python_callable = drop_table,
-    dag = dag
-)
-
-
-# 5. End Task
+# 4. End Task
 finish_task = PythonOperator(
     task_id = "finish_task",
     python_callable = finish_dag,
@@ -163,4 +133,4 @@ finish_task = PythonOperator(
 
 
 # ----------------------------- Trigger Tasks -----------------------------
-start_task >> tweets_db_task >> datawarehouse_db_task >> drop_table_task >> finish_task
+start_task >> tweets_db_task >> datawarehouse_db_task >> finish_task
