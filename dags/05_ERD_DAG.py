@@ -92,14 +92,25 @@ def dw_injuries_db(ti):
 
 # 4. Assign Foreign Keys to connect the other tables with player_code table
 def assign_fk():
+    # ---------------------- Connect to the DW ----------------------
+    # Data warehouse: dw_injuries
+    pg_hook_3 = PostgresHook(
+        postgres_conn_id='fantasypl_warehouse',
+        schema='dw_injuries'
+    )
+    # Connect to data warehouse: dw_injuries
+    pg_conn_3 = pg_hook_3.get_conn()
+    cursor_3 = pg_conn_3.cursor()
+
+    # ---------------------- Assign Foreign Keys ----------------------
     # Alter table weekly_tweets to assign the foreign key
     sql_alter_table = "ALTER TABLE weekly_tweets ADD FOREIGN KEY (code) REFERENCES player_code(code)"
 
     # Execute SQL statement
-    cursor_2.execute(sql_alter_table)
+    cursor_3.execute(sql_alter_table)
 
     # Commit
-    pg_conn_2.commit()
+    pg_conn_3.commit()
 
 # 5. Log the end of the DAG
 def finish_dag():
