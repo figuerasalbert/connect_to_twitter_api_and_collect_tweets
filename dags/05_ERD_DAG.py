@@ -80,7 +80,7 @@ def dw_injuries_db(ti):
 
 
     # Execute SQL statements
-    cursor_2.execute(sql_drop_table)
+    cursor_2.execute(sql_delete_records)
     cursor_2.execute(sql_create_table)
 
     # Commit
