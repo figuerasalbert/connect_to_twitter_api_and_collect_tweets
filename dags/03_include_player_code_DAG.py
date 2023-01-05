@@ -21,12 +21,12 @@ def start_dag():
 # 2. Collect data from 'tweets' database
 def set_id():
     # ---------------------- Get tweets data from DW ----------------------
-    # Data warehouse: injuries
+    # Data warehouse: tweets
     pg_hook_1 = PostgresHook(
         postgres_conn_id='tweets_warehouse',
         schema='tweets'
     )
-    # Connect to data warehouse: injuries
+    # Connect to data warehouse: tweets
     pg_conn_1 = pg_hook_1.get_conn()
     cursor_1 = pg_conn_1.cursor()
 
@@ -44,7 +44,7 @@ def set_id():
     tweets_df = pd.DataFrame(tuples_list_1, columns=columns)
 
     # ---------------------- Get fpl data from DW ----------------------
-    # Data warehouse: fpl
+    # Data warehouse: fantasypl
     pg_hook_2 = PostgresHook(
         postgres_conn_id='fantasypl_warehouse',
         schema='fantasypl'
