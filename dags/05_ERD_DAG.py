@@ -72,7 +72,7 @@ def dw_injuries_db(ti):
     cursor_2 = pg_conn_2.cursor()
 
     # Drop if exists the table player_code
-    sql_drop_table = "DROP IF EXISTS player_code CASCADE"
+    sql_drop_table = "DROP TABLE IF EXISTS player_code CASCADE"
 
     # Create New tweets_without_transformation Table
     sql_create_table = "CREATE TABLE IF NOT EXISTS player_code (code INT PRIMARY KEY, first_name VARCHAR(255)," \
