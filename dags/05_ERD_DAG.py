@@ -87,7 +87,7 @@ def dw_injuries_db(ti):
     pg_conn_2.commit()
 
     # Insert data into Data Lake
-    pg_hook.insert_rows(table="player_code", rows = code_player)
+    pg_hook_2.insert_rows(table="player_code", rows = code_player)
 
 # 4. Log the end of the DAG
 def finish_dag():
