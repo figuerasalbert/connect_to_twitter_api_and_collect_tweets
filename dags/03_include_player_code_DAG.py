@@ -194,6 +194,7 @@ def set_id():
     assigned = assigned.drop_duplicates()
 
     # Reset id_tweet column
+    assigned = assigned.reset_index()
     assigned['id_tweet'] = assigned.index + 1
 
     #Change the order of the columns data frame
