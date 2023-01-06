@@ -193,6 +193,9 @@ def set_id():
     # Remove duplicate rows
     assigned = assigned.drop_duplicates()
 
+    # Reset id_tweet column
+    assigned['id_tweet'] = assigned.index + 1
+
     #Change the order of the columns data frame
     assigned = assigned[['code', 'id_tweet', 'twitter_user', 'tweet', 'tweet_date', 'player', 'first_name',
                          'second_name', 'team', 'injury', 'expected_return_date', 'status']]
