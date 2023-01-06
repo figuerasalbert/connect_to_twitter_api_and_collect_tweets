@@ -127,7 +127,7 @@ default_args = {
     'start_date': datetime.datetime(2022, 12, 10)
 }
 
-dag = DAG('task_05_create_ERD',
+dag = DAG('task_05_create_ERD_DAG',
           schedule_interval='0 7 * * *',
           catchup=False,
           default_args=default_args)

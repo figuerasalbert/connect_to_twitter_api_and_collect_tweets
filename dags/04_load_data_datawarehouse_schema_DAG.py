@@ -93,7 +93,7 @@ default_args = {
     'start_date': datetime.datetime(2022, 12, 10)
 }
 
-dag = DAG('task_04_load_data_datawarehouse_db',
+dag = DAG('task_04_load_data_datawarehouse_db_DAG',
           schedule_interval='30 0 * * *',
           catchup=False,
           default_args=default_args)
