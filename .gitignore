@@ -3,3 +3,4 @@
 .DS_Store
 dags/.DS_Store
 dags/python_scripts/functions/.DS_Store
+dags/python_scripts/config.ini
